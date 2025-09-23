@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images and Ambiguity - Life on the Spectrum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', 'Georgia', serif;
+            line-height: 1.7;
+            color: #2e2b26;
+            background: radial-gradient(ellipse at center, #f1f0ec 0%, #e2dfd6 50%, #ccc6bb 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(122, 118, 109, 0.03) 2px,
+                    rgba(122, 118, 109, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(241, 240, 236, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(46, 43, 38, 0.15);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid #7a766d;
+            position: relative;
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #605c53, transparent);
+        }
+
+        nav:hover {
+            background: rgba(241, 240, 236, 0.98);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4e4a43;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(122, 118, 109, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .logo:hover {
+            color: #38342f;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #3e3a33;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu a:hover {
+            color: #2e2b26;
+            background: rgba(122, 118, 109, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .nav-menu a.active {
+            color: #f1f0ec;
+            background: linear-gradient(135deg, #4e4a43, #38342f);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            color: #2e2b26;
+            background: 
+                radial-gradient(ellipse at top, rgba(122, 118, 109, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, transparent 0%, rgba(96, 92, 83, 0.05) 100%);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(122, 118, 109, 0.02) 1px,
+                    rgba(122, 118, 109, 0.02) 2px
+                );
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(122, 118, 109, 0.3);
+            animation: fadeInUp 1s ease;
+            font-family: 'Times New Roman', serif;
+            color: #38342f;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.85;
+            font-style: italic;
+            animation: fadeInUp 1s ease 0.2s both;
+            color: #4e4a43;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            opacity: 0.75;
+            animation: fadeInUp 1s ease 0.4s both;
+            color: #3e3a33;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(122, 118, 109, 0.2);
+            color: #2e2b26;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(122, 118, 109, 0.4);
+            animation: fadeInUp 1s ease 0.6s both;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .cta-button:hover {
+            background: rgba(122, 118, 109, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(122, 118, 109, 0.2);
+            color: #1c1a17;
+        }
+
+        /* Content Sections */
+        .main-content {
+            background: linear-gradient(180deg, #f1f0ec 0%, #e6e4df 100%);
+            margin: 0 20px;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 
+                0 -10px 50px rgba(122, 118, 109, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(122, 118, 109, 0.2);
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(122, 118, 109, 0.02) 40px,
+                    rgba(122, 118, 109, 0.02) 42px
+                );
+            pointer-events: none;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .section {
+            padding: 80px 0;
+            display: none;
+            position: relative;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2e2b26;
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(122, 118, 109, 0.2);
+        }
+
+        .section h3 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: #3e3a33;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            color: #38342f;
+            text-indent: 2em;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #e6e4df, #d4d1ca);
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 
+                0 5px 20px rgba(122, 118, 109, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(122, 118, 109, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(122, 118, 109, 0.2);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    135deg,
+                    transparent,
+                    transparent 8px,
+                    rgba(122, 118, 109, 0.03) 8px,
+                    rgba(122, 118, 109, 0.03) 10px
+                );
+            pointer-events: none;
+            border-radius: 5px;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 35px rgba(122, 118, 109, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -1px 0 rgba(122, 118, 109, 0.15);
+        }
+
+        .card h4 {
+            color: #3e3a33;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            position: relative;
+            z-index: 1;
+            text-indent: 0;
+            color: #38342f;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Image-Text Alternating Rows */
+        .content-row {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin: 4rem 0;
+            padding: 2rem 0;
+        }
+
+        .content-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .content-image {
+            flex: 1;
+            max-width: 45%;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 
+                0 8px 25px rgba(122, 118, 109, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(122, 118, 109, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .content-image img:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 35px rgba(122, 118, 109, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .content-text {
+            flex: 1;
+            max-width: 55%;
+        }
+
+        .content-text h3 {
+            color: #3e3a33;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .content-text p {
+            color: #38342f;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: left;
+            text-indent: 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                margin: 0 10px;
+            }
+            
+            .content-row,
+            .content-row:nth-child(even) {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .content-image,
+            .content-text {
+                max-width: 100%;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #3e3a33 0%, #2e2b26 100%);
+            color: #ccc6bb;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 3px solid #4e4a43;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 4px,
+                    rgba(122, 118, 109, 0.05) 4px,
+                    rgba(122, 118, 109, 0.05) 8px
+                );
+            pointer-events: none;
+        }
+
+        footer p {
+            position: relative;
+            z-index: 1;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">Images & Ambiguity</a>
+                <ul class="nav-menu">
+                    <li><a href="#" onclick="showSection('home')" class="nav-link active">Home</a></li>
+                    <li><a href="#" onclick="showSection('about')" class="nav-link">My Story</a></li>
+                    <li><a href="#" onclick="showSection('philosophy')" class="nav-link">Understanding</a></li>
+                    <li><a href="#" onclick="showSection('spectrum')" class="nav-link">Living on the Spectrum</a></li>
+                    <li><a href="#" onclick="showSection('essays')" class="nav-link">Reflections</a></li>
+                    <li><a href="#" onclick="showSection('contact')" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <div id="home" class="section active">
+        <div class="hero">
+            <div class="container">
+                <h1>Images and Ambiguity</h1>
+                <p class="subtitle">Life on the Spectrum</p>
+                <p>Exploring my journey of self-discovery through visual perception, meaning, and understanding myself as someone living on the spectrum.</p>
+                <a href="#" onclick="showSection('about')" class="cta-button">My Journey</a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="container">
+                <div style="padding: 80px 0;">
+                    <h2>Welcome to My Personal Journey</h2>
+                    <p>This is my space for exploring how I see and understand the world around me. Through images and words, I'm learning about myself and what it means to experience life on the spectrum.</p>
+                    
+                    <div class="cards-grid">
+                        <div class="card">
+                            <h4>How I See</h4>
+                            <p>Discovering how my unique way of processing visual information shapes my understanding of the world around me.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Finding Meaning</h4>
+                            <p>Exploring how ambiguity in images and words can lead to deeper personal insights and self-understanding.</p>
+                        </div>
+                        <div class="card">
+                            <h4>My Spectrum Experience</h4>
+                            <p>Sharing personal reflections on what it means to navigate the world with a different neurological perspective.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Image-Text Alternating Rows -->
+                    <div class="content-row">
+                        <div class="content-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=face" alt="Portrait showing contemplative expression" />
+                        </div>
+                        <div class="content-text">
+                            <h3>Learning to See Myself</h3>
+                            <p>For the longest time, I thought everyone saw the world the way I did. It wasn't until I started really paying attention to how others responded to images that I realized my perspective was different. This photograph speaks to me because of the quiet contemplation in the subject's eyes—something I recognize in myself during moments of processing and understanding.</p>
+                        </div>
+                    </div>
+
+                    <div class="content-row">
+                        <div class="content-image">
+                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop" alt="Abstract geometric patterns and shadows" />
+                        </div>
+                        <div class="content-text">
+                            <h3>Patterns That Make Sense</h3>
+                            <p>This image immediately caught my attention because of the way the shadows create geometric patterns. While others might just see architectural details, I see a visual language that feels familiar and comforting. The repetition and structure speak to how my mind organizes information—finding order and meaning in what might seem like random elements.</p>
+                        </div>
+                    </div>
+
+                    <div class="content-row">
+                        <div class="content-image">
+                            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=400&fit=crop" alt="Misty forest with filtered light" />
+                        </div>
+                        <div class="content-text">
+                            <h3>When Clarity Emerges from Confusion</h3>
+                            <p>Sometimes the world feels overwhelming and unclear, like this misty forest where the path ahead isn't obvious. But there's something beautiful about these moments of ambiguity—they teach me patience and help me understand that not everything needs to be immediately clear. Sometimes the most meaningful insights come from sitting with uncertainty.</p>
+                        </div>
+                    </div>
+
+                    <div class="content-row">
+                        <div class="content-image">
+                            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=400&fit=crop" alt="Close-up of hands working on detailed craft" />
+                        </div>
+                        <div class="content-text">
+                            <h3>The Beauty of Focus</h3>
+                            <p>My tendency to hyperfocus on details isn't always understood by others, but images like this validate that focused attention can create something beautiful. When I see these hands carefully crafting something intricate, I recognize my own way of engaging with the world—deeply, attentively, and with genuine care for getting things right.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image-Text Alternating Rows -->
+                <div class="content-row">
+                    <div class="content-image">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=400&fit=crop" alt="Old family photograph with faded edges" />
+                    </div>
+                    <div class="content-text">
+                        <h3>Stories in Faded Photographs</h3>
+                        <p>Old photographs like this fascinate me because they hold so many layers of meaning. I find myself studying the details others might overlook—the way the light falls, the subtle expressions, the objects in the background. Each element tells part of a story, and I've learned that my attention to these details isn't excessive—it's how I connect with the human experiences captured in images.</p>
+                    </div>
+                </div>
+
+                <div class="content-row">
+                    <div class="content-image">
+                        <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=400&fit=crop" alt="Person silhouetted against a bright window" />
+                    </div>
+                    <div class="content-text">
+                        <h3>Understanding My Own Silhouette</h3>
+                        <p>Growing up, I often felt like I was on the outside looking in, like this silhouetted figure. But I've come to understand that being on the periphery sometimes gives me a clearer view of what's happening. My perspective from the spectrum isn't a limitation—it's a different vantage point that allows me to see things others might miss.</p>
+                    </div>
+                </div>
+
+                <div class="content-row">
+                    <div class="content-image">
+                        <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=600&h=400&fit=crop" alt="Macro shot of water droplets on glass" />
+                    </div>
+                    <div class="content-text">
+                        <h3>Finding Wonder in Small Details</h3>
+                        <p>What others might see as just water on glass, I see as a universe of tiny perfect spheres, each one reflecting and refracting light in its own way. This kind of detailed focus has always been natural for me, and through this journey, I've learned to appreciate it as a gift rather than an obsession. These small wonders are everywhere when you know how to look.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="section">
+        <div class="main-content">
+            <div class="container">
+                <h2>My Story</h2>
+                <p>Images and Ambiguity: Life on the Spectrum began as my personal journey of self-discovery. I started this project when I realized that the way I see and interpret the world is different from many others, and that this difference isn't a limitation—it's a unique lens that offers its own insights and understanding.</p>
+                
+                <h3>Why I Started This Journey</h3>
+                <p>For years, I struggled to understand why certain images spoke to me so powerfully while others left me confused. I noticed that what seemed clear to others was often ambiguous to me, and what I found obvious, others missed entirely. Instead of seeing this as a problem, I began to see it as an opportunity to explore a different way of experiencing the world.</p>
+                
+                <h3>Images as My Language</h3>
+                <p>I've always been drawn to visual information. Sometimes, a single image can communicate something to me that a thousand words cannot. Through this project, I'm learning to trust my visual instincts and understand how my mind processes the world around me differently.</p>
+                
+                <h3>Living and Learning on the Spectrum</h3>
+                <p>Being on the spectrum means that my brain works differently, and that includes how I perceive and interpret visual information. Rather than trying to fit into neurotypical ways of understanding, I'm embracing my unique perspective and sharing what I discover along the way.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Philosophy Section -->
+    <div id="philosophy" class="section">
+        <div class="main-content">
+            <div class="container">
+                <h2>Understanding Myself</h2>
+                
+                <h3>How My Mind Works with Images</h3>
+                <p>I've learned that my brain processes visual information in its own unique way. Sometimes I notice details that others miss completely, and other times I see patterns and connections that aren't immediately obvious. This isn't better or worse than other ways of seeing—it's simply different, and that difference has taught me so much about myself.</p>
+                
+                <h3>When Confusion Becomes Clarity</h3>
+                <p>There are times when an image that confuses everyone else makes perfect sense to me. And there are times when something that seems obvious to others leaves me completely puzzled. I've learned to embrace these moments of ambiguity as opportunities for deeper self-understanding rather than sources of frustration.</p>
+                
+                <h3>Learning to Trust My Perspective</h3>
+                <p>Growing up on the spectrum, I often doubted my own perceptions and interpretations. Through this journey with images and words, I'm learning to trust my unique way of seeing and understanding. My perspective might be different, but it's valid and valuable.</p>
+                
+                <h3>The Gift of Different Seeing</h3>
+                <p>I've come to realize that my spectrum experience gives me access to ways of perceiving and interpreting that many others don't have. This isn't about being better or worse—it's about recognizing that different minds bring different gifts to understanding our complex world.</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>Pattern Recognition</h4>
+                        <p>I often see patterns and connections in images that others miss, leading to unique insights and understanding.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Detail Focus</h4>
+                        <p>My tendency to focus on specific details sometimes reveals meanings and stories that broader perspectives overlook.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Literal and Beyond</h4>
+                        <p>Learning to navigate between literal interpretations and more abstract meanings has been part of my growth journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spectrum Section -->
+    <div id="spectrum" class="section">
+        <div class="main-content">
+            <div class="container">
+                <h2>Living on the Spectrum</h2>
+                
+                <p>Being on the autism spectrum is just one aspect of who I am, but it's an important part of how I experience and interpret the world around me. Through this personal journey, I've learned to appreciate the unique ways my mind works with visual information and language.</p>
+                
+                <h3>My Different Normal</h3>
+                <p>What feels natural and intuitive to me might seem unusual to others, and vice versa. I've learned that there's no single "right" way to process visual information or find meaning in images. My spectrum experience gives me a different baseline for what feels normal and comfortable.</p>
+                
+                <h3>Sensory Experiences</h3>
+                <p>Colors, textures, patterns, and visual details can affect me differently than they might affect others. Sometimes this means I'm overwhelmed by busy images, and other times it means I find incredible beauty and meaning in subtle details that others might overlook.</p>
+                
+                <h3>Communication Through Images</h3>
+                <p>I often find that I can express myself more clearly through visual elements than through words alone. Images help bridge the gap between my internal experience and what I want to share with others. They become a form of communication that feels more natural to me.</p>
+                
+                <h3>Building Understanding</h3>
+                <p>This journey isn't just about understanding myself—it's also about helping others understand what life on the spectrum can look like. Every person on the spectrum is different, but by sharing my experiences with images and meaning-making, I hope to contribute to greater understanding and acceptance.</p>
+                
+                <!-- Image-Text Alternating Rows -->
+                <div class="content-row">
+                    <div class="content-image">
+                        <img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?w=600&h=400&fit=crop" alt="Colorful spectrum of light through a prism" />
+                    </div>
+                    <div class="content-text">
+                        <h3>My Place on the Spectrum</h3>
+                        <p>Just like light breaking through a prism reveals all its hidden colors, being on the autism spectrum means my mind processes the world in its own unique way. Each person on the spectrum is different, like each color in this rainbow has its own wavelength and beauty. I've learned to appreciate my particular "wavelength" and the unique perspective it gives me.</p>
+                    </div>
+                </div>
+
+                <div class="content-row">
+                    <div class="content-image">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop" alt="Hands holding a fragile soap bubble" />
+                    </div>
+                    <div class="content-text">
+                        <h3>Navigating a Fragile World</h3>
+                        <p>Social situations can sometimes feel as delicate as this soap bubble—beautiful but fragile, requiring careful handling. I've learned that my direct communication style and different social intuitions aren't character flaws. They're just different ways of interacting with the world, and like this bubble, they have their own kind of beauty when understood properly.</p>
+                    </div>
+                </div>
+
+                <div class="content-row">
+                    <div class="content-image">
+                        <img src="https://images.unsplash.com/photo-1516541196182-6bdb0516ed27?w=600&h=400&fit=crop" alt="Person walking alone on a path through tall grass" />
+                    </div>
+                    <div class="content-text">
+                        <h3>Walking My Own Path</h3>
+                        <p>Sometimes living on the spectrum means taking a different route than everyone else. This image resonates with me because it shows someone choosing their own path through the landscape. It's not the well-worn road that others take, but it's their authentic journey. I've learned that my path might look different, but it's leading me exactly where I need to go.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Essays Section -->
+    <div id="essays" class="section">
+        <div class="main-content">
+            <div class="container">
+                <h2>Personal Reflections</h2>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>When Words Fail Me</h4>
+                        <p>A personal reflection on how images sometimes communicate what I cannot express in words, and what this has taught me about my own communication style.</p>
+                    </div>
+                    <div class="card">
+                        <h4>The Detail in the Corner</h4>
+                        <p>How my tendency to focus on specific details in images has led to unexpected discoveries and deeper self-understanding.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Misreading Social Cues</h4>
+                        <p>Learning about facial expressions and body language in photographs, and how this relates to my everyday social experiences.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Finding My Voice</h4>
+                        <p>The journey of learning to trust my own interpretations and perspectives, even when they differ from what others see.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Sensory Overwhelm and Beauty</h4>
+                        <p>How my sensory experiences with visual information have taught me about both my limitations and my unique strengths.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Growing Into Myself</h4>
+                        <p>Reflections on accepting my spectrum identity and learning to see it as part of my strength rather than something to overcome.</p>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; text-align: center; font-style: italic;">These reflections grow and evolve as I continue my journey of self-discovery and understanding.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="section">
+        <div class="main-content">
+            <div class="container">
+                <h2>Connect with Me</h2>
+                
+                <p>This personal journey is something I'm sharing openly, hoping it might resonate with others who see the world differently or who want to understand what life on the spectrum can look like. I welcome thoughtful connections and conversations.</p>
+                
+                <h3>Ways to Connect</h3>
+                <p>If my reflections speak to you—whether you're also on the spectrum, love someone who is, or simply appreciate different perspectives on how we see and understand our world—I'd love to hear from you.</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>Share Your Story</h4>
+                        <p>If you have your own experiences with seeing the world differently, I'd love to hear about your journey and what you've discovered.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Ask Questions</h4>
+                        <p>Curious about something I've shared? Want to understand more about my perspective? I'm open to thoughtful questions and conversations.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Suggest Images</h4>
+                        <p>Sometimes others see images that they think might speak to me or challenge my perspective in interesting ways. I welcome these suggestions.</p>
+                    </div>
+                </div>
+                
+                <h3>How to Reach Me</h3>
+                <p>I prefer written communication as it gives me time to process and respond thoughtfully. Please be patient with response times—I like to take my time to give thoughtful replies.</p>
+                
+                <p><strong>Email:</strong> hello@imagesandambiguity.org</p>
+                
+                <h3>A Note About Communication</h3>
+                <p>As someone on the spectrum, I communicate best when interactions are direct, honest, and kind. I appreciate patience and understanding, and I always try to offer the same in return. This space is meant to be welcoming for everyone, but especially for those who think and see differently.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Images and Ambiguity: Life on the Spectrum. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(241, 240, 236, 0.98)';
+            } else {
+                nav.style.background = 'rgba(241, 240, 236, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
