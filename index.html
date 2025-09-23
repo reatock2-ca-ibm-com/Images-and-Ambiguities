@@ -1,25 +1,188 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-    span.s1 {font-kerning: none}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Index - Images and Ambiguity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', 'Georgia', serif;
+            line-height: 1.7;
+            color: #2e2b26;
+            background: radial-gradient(ellipse at center, #f1f0ec 0%, #e2dfd6 50%, #ccc6bb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(122, 118, 109, 0.03) 2px,
+                    rgba(122, 118, 109, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 3rem;
+            background: linear-gradient(145deg, #e6e4df, #d4d1ca);
+            border-radius: 8px;
+            box-shadow: 
+                0 15px 50px rgba(122, 118, 109, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(122, 118, 109, 0.1);
+            border: 1px solid rgba(122, 118, 109, 0.2);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    135deg,
+                    transparent,
+                    transparent 8px,
+                    rgba(122, 118, 109, 0.03) 8px,
+                    rgba(122, 118, 109, 0.03) 10px
+                );
+            pointer-events: none;
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #38342f;
+            font-weight: 400;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4e4a43;
+            font-style: italic;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #3e3a33;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .website-link {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(122, 118, 109, 0.2);
+            color: #2e2b26;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(122, 118, 109, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .website-link:hover {
+            background: rgba(122, 118, 109, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(122, 118, 109, 0.2);
+            color: #1c1a17;
+        }
+
+        .info-text {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            color: #4e4a43;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!doctype html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;img src=“images/imagesLogo.png&gt;&lt;/img&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;body&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;p&gt;Welcome to &lt;strong&gt; Images and ambiguities&lt;/strong&gt;. A life in words and pictures. Your place to express opinion . All we ask is tolerance and respect.<span class="Apple-converted-space">  </span>We are a space where others are respected Irrespective of &lt;strong&gt; Any &lt;/strong&gt; . Differences &lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/body&gt;t</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+    <div class="container">
+        <h1>Images and Ambiguity</h1>
+        <p class="subtitle">Life on the Spectrum</p>
+        
+        <p class="description">
+            A personal journey of self-discovery through visual perception and understanding 
+            myself as someone living on the autism spectrum. Exploring how images and words 
+            help me make sense of my unique perspective on the world.
+        </p>
+        
+        <a href="#" onclick="openMainSite()" class="website-link">Enter My Journey</a>
+        
+        <p class="info-text">
+            This website uses a selenium-toned, early 20th century aesthetic to create 
+            a contemplative space for personal reflection and understanding.
+        </p>
+    </div>
+
+    <script>
+        function openMainSite() {
+            // In a real implementation, this would link to the main website file
+            // For now, it shows an alert since we can't navigate between artifacts
+            alert('In a real implementation, this would open the main website. The main site contains:\n\n• Personal story and journey\n• Understanding my unique perspective\n• Living on the spectrum reflections\n• Image and text combinations exploring self-discovery\n• Contact information for connecting with others');
+        }
+    </script>
 </body>
 </html>
